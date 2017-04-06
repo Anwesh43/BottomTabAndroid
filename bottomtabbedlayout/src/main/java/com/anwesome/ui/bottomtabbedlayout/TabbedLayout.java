@@ -19,6 +19,7 @@ import java.util.List;
 public class TabbedLayout extends ViewGroup {
     private TabbedView currView = null;
     private List<TabbedElement> tabbedElements = new ArrayList<>();
+    private RelativeLayout relativeLayout;
     private int w=100,h=100;
     final private int n = 5;
     public void onMeasure(int wspec,int hspec) {
@@ -35,8 +36,8 @@ public class TabbedLayout extends ViewGroup {
         int gap= w/(2*n),x=gap,y = (3*h/4);
         for(int i=0;i<getChildCount();i++) {
             View child = getChildAt(i);
-            if(child instanceof TabbedView) {
-                child.layout(0,(int)child.getY(),w,(int)child.getY()+h);
+            if(child instanceof RelativeLayout) {
+                child.layout(0,0,w,h);
             }
             else if(child instanceof BottomButton){
                 child.layout(x,y,x+gap,y+gap);
@@ -44,19 +45,23 @@ public class TabbedLayout extends ViewGroup {
             }
         }
     }
+    public void addTabbedView(TabbedView tabbedView) {
+        tabbedView.setY(h);
+        relativeLayout.addView(tabbedView,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+    }
     public float getH() {
         return h;
     }
     public void addTab(Bitmap icon,TabbedView tabbedView) throws Exception{
         if(tabbedElements.size()<n) {
             BottomButton bottomButton = new BottomButton(getContext(), icon);
-            bottomButton.bringToFront();
+            bottomButton.setElevation(20);
             addView(bottomButton, new LayoutParams(w / (2*n), w / (2*n)));
             if (currView == null && tabbedElements.size() == 0) {
                 currView = tabbedView;
                 currView.setX(0);
                 currView.setY(0);
-                addView(currView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                relativeLayout.addView(currView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             }
             TabbedElement tabbedElement = new TabbedElement(bottomButton, tabbedView,this);
             tabbedElements.add(tabbedElement);
@@ -81,6 +86,8 @@ public class TabbedLayout extends ViewGroup {
             w = size.x;
             h = size.y;
         }
+        relativeLayout = new RelativeLayout(getContext());
+        addView(relativeLayout,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
 
     }
     public TabbedLayout(Context context, AttributeSet attrs) {
@@ -94,10 +101,10 @@ public class TabbedLayout extends ViewGroup {
     }
     public void setNewTab(TabbedView newTab) {
         if(currView != null) {
-            removeView(currView);
+            relativeLayout.removeView(currView);
             currView = newTab;
             currView.setY(0);
-            requestLayout();
+            relativeLayout.requestLayout();
         }
     }
 }

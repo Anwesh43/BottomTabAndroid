@@ -14,16 +14,14 @@ public class TabbedAnimationHandler  implements ValueAnimator.AnimatorUpdateList
     public TabbedAnimationHandler(TabbedLayout layout,TabbedView newTab) {
         this.newTab = newTab;
         this.layout = layout;
-        yAnimator = ValueAnimator.ofFloat(layout.getH(),0);
-        yAnimator.setDuration(250);
+        yAnimator = ValueAnimator.ofFloat(layout.getH()*0.9f,0);
+        yAnimator.setDuration(1000);
         yAnimator.addUpdateListener(this);
         yAnimator.addListener(this);
     }
     public void start() {
         if(yAnimator!=null && !layout.sameTab(newTab)) {
-            newTab.setY(layout.getH());
-            layout.addView(newTab);
-            layout.requestLayout();
+            layout.addTabbedView(newTab);
             yAnimator.start();
         }
         else {
