@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class TabbedLayout extends ViewGroup {
     public void addTab(Bitmap icon,TabbedView tabbedView) throws Exception{
         if(tabbedElements.size()<n) {
             BottomButton bottomButton = new BottomButton(getContext(), icon);
+            bottomButton.bringToFront();
             addView(bottomButton, new LayoutParams(w / (2*n), w / (2*n)));
             if (currView == null && tabbedElements.size() == 0) {
                 currView = tabbedView;
