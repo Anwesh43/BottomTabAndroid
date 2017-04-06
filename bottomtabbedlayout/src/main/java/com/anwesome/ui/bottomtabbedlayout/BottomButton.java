@@ -3,6 +3,7 @@ package com.anwesome.ui.bottomtabbedlayout;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.view.View;
@@ -23,8 +24,10 @@ public class BottomButton extends View{
         if(time == 0) {
             bitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
         }
+        paint.setColor(Color.WHITE);
         Path path = new Path();
         path.addCircle(w/2,h/2,w/2, Path.Direction.CCW);
+        canvas.drawPath(path,paint);
         canvas.clipPath(path);
         canvas.drawBitmap(bitmap,0,0,paint);
         time++;

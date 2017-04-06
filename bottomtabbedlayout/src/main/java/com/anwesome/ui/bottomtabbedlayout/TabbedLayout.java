@@ -27,12 +27,15 @@ public class TabbedLayout extends ViewGroup {
         }
         setMeasuredDimension(w,h);
     }
+    public boolean sameTab(TabbedView tabbedView) {
+        return tabbedView == currView;
+    }
     public void onLayout(boolean reloaded,int a,int b,int w,int h) {
-        int x = 0,gap= w/(2*n),y = h-h/9;
+        int gap= w/(2*n),x=gap,y = (3*h/4);
         for(int i=0;i<getChildCount();i++) {
             View child = getChildAt(i);
             if(child instanceof TabbedView) {
-                child.layout(0,0,w,h);
+                child.layout(0,(int)child.getY(),w,(int)child.getY()+h);
             }
             else if(child instanceof BottomButton){
                 child.layout(x,y,x+gap,y+gap);
@@ -84,14 +87,15 @@ public class TabbedLayout extends ViewGroup {
     }
     public void animateCurrTab(float y) {
         if(currView!=null) {
-            currView.setY(h-y);
+            currView.setY(y-h);
         }
     }
     public void setNewTab(TabbedView newTab) {
-        if(currView == null) {
+        if(currView != null) {
             removeView(currView);
             currView = newTab;
-            addView(currView,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+            currView.setY(0);
+            requestLayout();
         }
     }
 }
