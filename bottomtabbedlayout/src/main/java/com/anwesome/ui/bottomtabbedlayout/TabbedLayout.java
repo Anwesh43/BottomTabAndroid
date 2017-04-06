@@ -53,7 +53,7 @@ public class TabbedLayout extends ViewGroup {
                 currView.setY(0);
                 addView(currView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             }
-            TabbedElement tabbedElement = new TabbedElement(bottomButton, tabbedView);
+            TabbedElement tabbedElement = new TabbedElement(bottomButton, tabbedView,this);
             tabbedElements.add(tabbedElement);
             requestLayout();
         }

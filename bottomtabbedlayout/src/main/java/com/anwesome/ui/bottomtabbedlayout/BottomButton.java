@@ -14,8 +14,9 @@ public class BottomButton extends View{
     private Bitmap bitmap;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private int time = 0;
-    public BottomButton(Context context,Bitmap bitmap) {
+    public BottomButton(Context context, Bitmap bitmap) {
         super(context);
+        this.bitmap = bitmap;
     }
     public void onDraw(Canvas canvas) {
         int w = canvas.getWidth(), h = canvas.getHeight();
