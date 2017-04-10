@@ -47,7 +47,7 @@ public class TabbedLayout extends ViewGroup {
     }
     public void addTabbedView(TabbedView tabbedView) {
         tabbedView.setY(h);
-        relativeLayout.addView(tabbedView,new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+        relativeLayout.addView(tabbedView,new LayoutParams(LayoutParams.MATCH_PARENT,h));
     }
     public float getH() {
         return h;
@@ -61,7 +61,7 @@ public class TabbedLayout extends ViewGroup {
                 currView = tabbedView;
                 currView.setX(0);
                 currView.setY(0);
-                relativeLayout.addView(currView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+                relativeLayout.addView(currView, new LayoutParams(LayoutParams.MATCH_PARENT,h));
             }
             TabbedElement tabbedElement = new TabbedElement(bottomButton, tabbedView,this);
             tabbedElements.add(tabbedElement);

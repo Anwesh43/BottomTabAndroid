@@ -22,14 +22,14 @@ public class BottomButton extends View{
     public void onDraw(Canvas canvas) {
         int w = canvas.getWidth(), h = canvas.getHeight();
         if(time == 0) {
-            bitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
+            bitmap = Bitmap.createScaledBitmap(bitmap, w/2+w/10, h/2+h/10, true);
         }
         paint.setColor(Color.WHITE);
         Path path = new Path();
         path.addCircle(w/2,h/2,w/2, Path.Direction.CCW);
         canvas.drawPath(path,paint);
         canvas.clipPath(path);
-        canvas.drawBitmap(bitmap,0,0,paint);
+        canvas.drawBitmap(bitmap,w/2-bitmap.getWidth()/2,h/2-bitmap.getHeight()/2,paint);
         time++;
     }
 }
